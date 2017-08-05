@@ -1,0 +1,20 @@
+package org.launchcode.cheesemvc.controllers;
+
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestMapping;
+
+
+@Controller
+@RequestMapping("cheese") // base path: /cheese
+public class CheeseController {
+
+    @RequestMapping(value="")
+//    @ResponseBody
+    public String index(Model model) {
+
+        model.addAttribute("title", "My Cheeses");
+
+        return "cheese/index"; // template name w/o extension
+    }
+}
