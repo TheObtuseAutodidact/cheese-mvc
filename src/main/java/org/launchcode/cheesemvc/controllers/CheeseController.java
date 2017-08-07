@@ -1,20 +1,43 @@
 package org.launchcode.cheesemvc.controllers;
 
+import org.apache.catalina.servlet4preview.http.HttpServletRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+
+import java.util.ArrayList;
 
 
 @Controller
 @RequestMapping("cheese") // base path: /cheese
 public class CheeseController {
+    static ArrayList<String> cheeses = new ArrayList<>();
 
     @RequestMapping(value="")
-//    @ResponseBody
     public String index(Model model) {
-
+        model.addAttribute("cheeses", cheeses); // passing object: ArrayList
         model.addAttribute("title", "My Cheeses");
 
         return "cheese/index"; // template name w/o extension
+    }
+
+
+    @RequestMapping(value="add", method = RequestMethod.GET)
+    public String displayAddCheeseForm(Model model) {
+        model.addAttribute("title", "Add Cheese");
+
+        return "cheese/add";
+    }
+
+
+    @RequestMapping(value="add", method = RequestMethod.POST)
+    public String processAddCheeseForm(@RequestParam String cheeseName) {
+
+        cheeses.add(cheeseName);
+        // Redirect to /cheese
+        return "redirect:"; // base path
+
     }
 }
