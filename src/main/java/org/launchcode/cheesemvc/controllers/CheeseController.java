@@ -42,4 +42,25 @@ public class CheeseController {
         return "redirect:"; // base path
 
     }
+
+
+    @RequestMapping(value="remove", method=RequestMethod.GET)
+    public String displayRemoveCheeseForm(Model model) {
+        model.addAttribute("title", "Remove Cheese");
+        model.addAttribute("cheeses", cheeses); // passing object: ArrayList
+
+        return "cheese/remove";
+        }
+
+
+    @RequestMapping(value="remove", method=RequestMethod.POST)
+    public String processRemoveCheeseForm(@RequestParam String cheeseName) {
+
+        for (String cheese : cheeseName.split( ",")) {
+            System.out.println(cheese);
+            cheeses.remove(cheese);
+        }
+
+        return "redirect:";
+    }
 }
